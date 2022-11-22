@@ -1,0 +1,48 @@
+class Sistema
+types
+
+		public string = seq of char;
+		public Sensores = map Sensor`SensorId to Sensor
+values
+
+instance variables
+
+		sensores : Sensores;
+		bot : Alarma;
+		tmp : Sensor`Lecturas;	
+		intermedio : bool;
+		superior : bool;
+		inferior : bool;
+		
+operations
+
+public Sistema: set of Sensor*Alarma ==> Sistema
+Sistema(sensoresList, mybot) == (
+		sensores := {item.getID() |-> item | item in set sensoresList};
+		bot := mybot;
+)
+pre (forall p,q in set sensoresList & p <> q => p.getID() <> q.getID());
+
+public getSensores:() ==>(map Sensor`SensorId to Sensor)
+getSensores() == (
+		return sensores;
+);
+public getStatus:(Sensor`SensorId) ==> (Alarma`Toxicidad)
+getStatus(mysensorid) == (
+	tmp := sensores(mysensorid).getLecturas();
+	inferior := (forall x in set inds tmp & tmp(x).getValorLectura() < 120);
+	intermedio := forall x in set inds tmp & tmp(x).getValorLectura() < 500;
+	if inferior
+	then	return <Leve>
+	elseif intermedio
+	then return <Medio>
+	else return <Severo>;
+);
+
+
+
+functions
+
+traces
+
+end Sistema

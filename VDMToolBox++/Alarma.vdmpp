@@ -1,0 +1,20 @@
+class Alarma
+types
+		public Name = seq of char;
+		public Toxicidad = <Leve> | <Medio> | <Severo>;
+		
+values
+instance variables
+		name : Name;
+
+operations
+public Alarma: Name ==> Alarma
+Alarma(newName) == (
+	name := newName;
+);
+
+functions
+
+traces
+
+end Alarma
