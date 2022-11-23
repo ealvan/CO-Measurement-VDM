@@ -1,0 +1,57 @@
+class Run
+types
+-- TODO Define types here
+values
+-- TODO Define values here
+instance variables
+-- TODO Define instance variables here
+		private l1: Lectura;
+		private l2: Lectura;
+		private l3: Lectura;
+		private l4: Lectura;
+		private l5: Lectura;
+		private l6: Lectura;
+		
+		private s1: Sensor;
+		private s2: Sensor;
+		
+		private sys: Sistema;
+		private alarma: Alarma;
+		
+operations
+-- TODO Define operations here
+
+public Execute1 : () ==> ()
+Execute1() == (
+		IO`println("TESTEANDO LAS PROPIEDADES DE -> LECTURA");
+		-- IO`println
+		l1 := new Lectura(111,[2022,10,11],[22,02,00]);
+		l2 := new Lectura(222,[2022,31,12],[22,02,00]);
+		l3 := new Lectura(333,[2022,10,13],[22,02,00]);
+		l4 := new Lectura(444,[2022,10,14],[22,02,00]);
+		l5 := new Lectura(555,[2022,10,15],[22,02,00]);
+		l6 := new Lectura(666,[2022,10,15],[22,02,00]);
+		
+		IO`println(l1.getValorLectura());
+		IO`println({l1.getFecha()});
+		IO`println("TESTEANDO LAS PROPIEDADES DE -> SENSOR");
+		s1 := new Sensor(mk_token(1),[l1,l2,l3,l4,l5]);
+		s2 := new Sensor(mk_token(2),[l1,l2,l5]);
+		s2.addLectura(l6);
+		IO`println({s1.getLecturas()});
+		IO`println({s2.getLecturas()});
+		IO`println({s1.getID()});
+		IO`println({s2.getID()});
+		IO`println("TESTEANDO LAS PROPIEDADES DE -> SISTEMA");
+		alarma := new Alarma(['a','2']);
+		sys := new Sistema({s1,s2}, alarma);
+		IO`println("STATUS DEL SENSOR 1");
+		IO`println(sys.getStatus(mk_token(1)));
+		
+		
+);
+functions
+-- TODO Define functions here
+traces
+-- TODO Define Combinatorial Test Traces here
+end Run

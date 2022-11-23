@@ -1,0 +1,43 @@
+class Sensor
+types
+		public Lecturas = seq of Lectura;
+		public SensorId = token;
+values
+
+instance variables
+
+		lecturas : seq of Lectura := [];
+		sid : SensorId;
+
+inv len lecturas <= 6
+
+operations
+public getLecturas:() ==> Lecturas
+getLecturas() == (
+		return lecturas;
+);
+
+public addLectura:(Lectura) ==> ()
+addLectura(newLectura) == 
+(
+	lecturas := lecturas ^ [newLectura];
+);
+
+public getID:() ==> SensorId
+getID() == (
+	return sid;
+);
+
+-- Contructor
+public Sensor: SensorId*Lecturas  ==> Sensor
+Sensor(mysensorid, newLecturas ) == (
+	sid := mysensorid;
+	lecturas := newLecturas;
+)
+pre len newLecturas <= 6;
+
+functions
+
+traces
+
+end Sensor
